@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload image</title> 
+</head>
+ 
+<body>
+    <div class="heading">Upload Image Here</div>
+    <div class="display"></div>
+    <form method="post" action="/post" enctype="multipart/form-data">
+      <input type="file" name="upload" id="upload" >
+      <input type="text" name="label">
+      <button type="submit"> Submit </button>
+    </form>
+  </body>
+</html>
+
+<script>
+  const display = document.querySelector(".display");
+  const input = document.querySelector("#upload");
+  let img = document.querySelector("img");
+
+  input.addEventListener("change", () => {
+  let reader = new FileReader();
+  reader.readAsDataURL(input.files[0]);
+  reader.addEventListener("load", () => {
+      display.innerHTML = `<img src=${reader.result} alt=''/>`;
+  });
+  });
+</script>

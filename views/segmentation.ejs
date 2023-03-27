@@ -1,0 +1,48 @@
+ <!DOCTYPE html>
+ <html lang="en">
+   <head>
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <title>Segmentation</title>
+     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
+   </head>
+ 
+   <body>
+   
+     <div>
+       <img id="image" src="data:image/png;base64,<%= imageUrl %>" alt="Picture">
+       <h2><%= label %></h2>
+     </div>
+     <h1>Result</h1>
+     
+     <form method="post" action="/" enctype="multipart/form-data">
+       <div id="result" name="result"></div>
+       <input type="hidden" id="croppedImage" name="croppedImage" value="">
+       <p>
+         <button type="button" id="button">Crop</button>
+       </p>
+       <button type="submit"> Submit </button>
+     </form>
+   </body>
+ 
+   <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
+   <script>
+     window.addEventListener('DOMContentLoaded', function () {
+       var image = document.querySelector('#image');
+       var button = document.getElementById('button');
+       var result = document.getElementById('result');
+       var cropper = new Cropper(image);
+ 
+       button.onclick = function () {
+         result.innerHTML = '';
+         var croppedCanvas = cropper.getCroppedCanvas();
+         var croppedImageDataUrl = croppedCanvas.toDataURL();
+         console.log(croppedImageDataUrl);
+         document.getElementById("croppedImage").value = croppedImageDataUrl;
+         result.appendChild(croppedCanvas);
+       };
+     });
+   </script>
+      
+ </html>
+ 
